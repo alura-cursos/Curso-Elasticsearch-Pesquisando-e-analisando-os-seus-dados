@@ -1,0 +1,24 @@
+Execute os requests a seguir com o kopf (http://localhost:9200/_plugin/kopf/#!/rest):
+
+PUT /catalogo/pessoas/1
+{
+  "nome": "Patrick von Steppat 2",
+  "interesses": [
+    "computação",
+    "culinária",
+    "cinema"
+  ],
+  "cidade": "Rio de Janeiro",
+  "formação": "Gastronomia",
+  "estado": "RJ",
+  "país": "Brasil",
+  "nascimento": "1984-10-03"
+}
+
+{
+    "properties": {
+        "pulo": {
+            "type": "integer"
+        }
+    }
+}
