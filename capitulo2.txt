@@ -1,0 +1,16 @@
+Execute os requests a seguir com o kopf (http://localhost:9200/_plugin/kopf/#!/rest):
+
+PUT /catalogo/pessoas/
+
+{
+    "nome": "João Silva",
+    "interesses": [
+        "futebol",
+        "música",
+        "literatura"
+    ],
+    "cidade": "São Paulo",
+    "formação": "Letras",
+    "estado": "SP",
+    "país": "Brasil"
+}
