@@ -1,0 +1,91 @@
+Execute os requests a seguir com o kopf (http://localhost:9200/_plugin/kopf/#!/rest):
+
+PUT /catalogo_v2
+
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 3,
+      "number_of_replicas": 0
+    }
+  },
+  "mappings": {
+    "pessoas_v2": {
+      "_all": {
+        "type": "string",
+        "index": "analyzed",
+        "analyzer": "portuguese"
+      },
+      "properties": {
+        "cidade": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        },
+        "estado": {
+          "type": "string"
+        },
+        "formação": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        },
+        "interesses": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        },
+        "nome": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        },
+        "país": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        }
+      }
+    }
+  }
+}
+
+POST /catalogo_v2/pessoas_v2/1
+{
+    "nome": "João Silva",
+    "interesses": ["futebol", "música", "literatura"],
+    "cidade": "São Paulo",
+    "formação": "Letras",
+    "estado": "SP",
+    "país": "Brasil"
+}
+
+POST /catalogo_v2/pessoas_v2/2
+{
+    "nome": "Maria Silva",
+    "interesses": ["pintura", "literatura", "teatro"],
+    "cidade": "Diamantina",
+    "formação": "Artes Plásticas",
+    "estado": "MG",
+    "país": "Brasil"
+}
+
+POST /catalogo_v2/pessoas_v2/3
+{
+    "nome": "Richard Edward",
+    "interesses": ["matemática", "física", "música"],
+    "cidade": "Boston",
+    "formação": "Física",
+    "estado": "MA",
+    "país": "Estados Unidos"
+}
+
+POST /catalogo_v2/pessoas_v2/4
+{
+    "nome": "Patrick von Steppat",
+    "interesses": ["computação", "culinária", "cinema"],
+    "cidade": "Rio de Janeiro",
+    "formação": "Gastronomia",
+    "estado": "RJ",
+    "país": "Brasil"
+}
