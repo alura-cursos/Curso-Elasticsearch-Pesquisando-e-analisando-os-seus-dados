@@ -1,0 +1,155 @@
+Execute os requests a seguir com o kopf (http://localhost:9200/_plugin/kopf/#!/rest):
+
+PUT /catalogo_v3
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 3,
+      "number_of_replicas": 0
+    },
+    "analysis": {
+      "filter": {
+         "portuguese_stop": {
+          "type":       "stop",
+          "stopwords":  "_portuguese_" 
+        },
+        "portuguese_stemmer": {
+          "type": "stemmer",
+          "language": "light_portuguese"
+        },
+        "filtro_de_sinonimos": {
+          "type": "synonym",
+          "synonyms": [
+            "futebol => futebol,society",
+            "society => society,futebol",
+            "volei,voleibol,volleyball",
+            "esport => esport,futebol,society,volei,basquet",
+            "exat => exat,matematic,fisic,computaca",
+            "arte => arte,pintur,teatr,music,cinem"
+          ]
+        }
+      },
+      "analyzer": {
+        "sinonimos": {
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "portuguese_stop",
+            "portuguese_stemmer",
+            "filtro_de_sinonimos"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "pessoas": {
+      "_all": {
+        "type": "string",
+        "index": "analyzed",
+        "analyzer": "portuguese"
+      },
+      "properties": {
+        "cidade": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        },
+        "estado": {
+          "type": "string"
+        },
+        "formação": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        },
+        "interesses": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese",
+          "search_analyzer": "sinonimos"
+        },
+        "nome": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        },
+        "país": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "portuguese"
+        }
+      }
+    }
+  }
+}
+
+POST /catalogo_v3/pessoas/1
+{
+    "nome": "João Silva",
+    "interesses": ["futebol", "música", "literatura"],
+    "cidade": "São Paulo",
+    "formação": "Letras",
+    "estado": "SP",
+    "país": "Brasil"
+}
+
+POST /catalogo_v3/pessoas/2
+{
+    "nome": "Maria Silva",
+    "interesses": ["pintura", "literatura", "teatro"],
+    "cidade": "Diamantina",
+    "formação": "Artes Plásticas",
+    "estado": "MG",
+    "país": "Brasil"
+}
+
+POST /catalogo_v3/pessoas/3
+{
+    "nome": "Richard Edward",
+    "interesses": ["matemática", "física", "música"],
+    "cidade": "Boston",
+    "formação": "Física",
+    "estado": "MA",
+    "país": "Estados Unidos"
+}
+
+POST /catalogo_v3/pessoas/4
+{
+    "nome": "Patrick von Steppat",
+    "interesses": ["computação", "culinária", "cinema"],
+    "cidade": "Rio de Janeiro",
+    "formação": "Gastronomia",
+    "estado": "RJ",
+    "país": "Brasil"
+}
+
+POST /catalogo_v3/pessoas/5
+{
+  "nome": "Paulo Eduardo de Azevedo Silveira",
+  "interesses": ["computação", "literatura"],
+  "cidade": "São Paulo",
+  "formação": "Computação",
+  "estado": "SP",
+  "país": "Brasil"
+}
+
+POST /catalogo_v3/pessoas/6
+{
+  "nome": "Michael Jordan",
+  "interesses": ["basquete"],
+  "cidade": "Chicago",
+  "formação": "Artes",
+  "estado": "IL",
+  "país": "Estados Unidos"
+}
+
+POST /catalogo_v3/pessoas/7
+{
+  "nome": "Marcelo Negrão",
+  "interesses": ["volei"],
+  "cidade": "São Paulo",
+  "formação": "Adminstração",
+  "estado": "SP",
+  "país": "Brasil"
+}
