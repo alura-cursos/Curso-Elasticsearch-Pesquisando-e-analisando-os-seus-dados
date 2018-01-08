@@ -1,0 +1,48 @@
+Execute os requests a seguir com o kopf (http://localhost:9200/_plugin/kopf/#!/rest):
+
+POST /catalogo/pessoas/1
+{
+    "nome": "João Silva",
+    "interesses": ["futebol", "música", "literatura"],
+    "cidade": "São Paulo",
+    "formação": "Letras",
+    "estado": "SP",
+    "país": "Brasil"
+}
+
+POST /catalogo/pessoas/2
+{
+    "nome": "Maria Silva",
+    "interesses": ["pintura", "literatura", "teatro"],
+    "cidade": "Diamantina",
+    "formação": "Artes Plásticas",
+    "estado": "MG",
+    "país": "Brasil"
+}
+
+POST /catalogo/pessoas/3
+{
+    "nome": "Richard Edward",
+    "interesses": ["matemática", "física", "música"],
+    "cidade": "Boston",
+    "formação": "Física",
+    "estado": "MA",
+    "país": "Estados Unidos"
+}
+
+POST /catalogo/pessoas/4
+{
+    "nome": "Patrick von Steppat",
+    "interesses": ["computação", "culinária", "cinema"],
+    "cidade": "Rio de Janeiro",
+    "formação": "Gastronomia",
+    "estado": "RJ",
+    "país": "Brasil"
+}
+
+PUT /catalogo/_settings
+{
+    "index": {
+        "number_of_replicas": 0
+    }
+}
